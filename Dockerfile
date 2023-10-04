@@ -34,9 +34,9 @@ RUN  cmake \
 RUN make -j $(nproc)
 RUN make install
 
-RUN python3 -m pip install cmake_build_extension wheel
+RUN python -m pip install cmake_build_extension wheel
 WORKDIR /s2/
-RUN python3 setup.py bdist_wheel
+RUN python setup.py bdist_wheel
 
 FROM python:3.10 as app
 ENV BOT_MASTER=""
@@ -45,14 +45,12 @@ ENV PG_USERNAME="postgres"
 ENV PG_DATABASE="postgres"
 ENV PG_HOSTNAME="pgdb"
 ENV PG_PASSWORD="password"
-RUN apt-get update && apt-get install -y python3-dev
 COPY --from=base /s2/dist /s2-dep/
-RUN python3 -m pip install /s2-dep/s2geometry-0.11.0.dev1-cp310-cp310-linux_x86_64.whl
+RUN python -m pip install /s2-dep/s2geometry-0.11.0.dev1-cp310-cp310-linux_x86_64.whl
 COPY Meowth /code/
-COPY requirements.txt /code/
+COPY requirements.txt /code/requirements.txt
 WORKDIR /code
-RUN python3 -m pip install -r requirements.txt
-RUN python3 setup.py install meowth
-WORKDIR /code/meowth
+RUN python -m pip install -r requirements.txt
 COPY entrypoint.sh /code/meowth/entrypoint.sh
+WORKDIR /code/meowth
 CMD [ "/bin/sh", "entrypoint.sh" ]
