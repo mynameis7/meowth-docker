@@ -41,6 +41,10 @@ RUN python3 setup.py bdist_wheel
 FROM python:3.10 as app
 ENV BOT_MASTER=""
 ENV BOT_TOKEN=""
+ENV PG_USERNAME="postgres"
+ENV PG_DATABASE="postgres"
+ENV PG_HOSTNAME="pgdb"
+ENV PG_PASSWORD="password"
 RUN apt-get update && apt-get install -y python3-dev
 COPY --from=base /s2/dist /s2-dep/
 RUN python3 -m pip install /s2-dep/s2geometry-0.11.0.dev1-cp310-cp310-linux_x86_64.whl
@@ -48,6 +52,7 @@ COPY Meowth /code/
 COPY requirements.txt /code/
 WORKDIR /code
 RUN python3 -m pip install -r requirements.txt
-
-COPY entrypoint.sh /code/entrypoint.sh
-ENTRYPOINT [ "/bin/sh", "entrypoint.sh" ]
+RUN python3 setup.py install meowth
+WORKDIR /code/meowth
+COPY entrypoint.sh /code/meowth/entrypoint.sh
+CMD [ "/bin/sh", "entrypoint.sh" ]

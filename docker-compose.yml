@@ -1,6 +1,44 @@
+version: '3.8'
 services:
+  pgdb:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./Meowth/database/schema.sql:/docker-entrypoint-initdb.d/001_schema.sql
+      - ./Meowth/database/accuweather.sql:/docker-entrypoint-initdb.d/010_accuweather.sql
+      - ./Meowth/database/cpm_table.sql:/docker-entrypoint-initdb.d/011_cpm_table.sql
+      - ./Meowth/database/form_names.sql:/docker-entrypoint-initdb.d/012_form_names.sql
+      - ./Meowth/database/forms.sql:/docker-entrypoint-initdb.d/013_forms.sql
+      - ./Meowth/database/item_names.sql:/docker-entrypoint-initdb.d/014_item_names.sql
+      - ./Meowth/database/move_names.sql:/docker-entrypoint-initdb.d/015_move_names.sql
+      - ./Meowth/database/moves.sql:/docker-entrypoint-initdb.d/016_moves.sql
+      - ./Meowth/database/movesets.sql:/docker-entrypoint-initdb.d/017_movesets.sql
+      - ./Meowth/database/pokedex.sql:/docker-entrypoint-initdb.d/018_pokedex.sql
+
+      - ./Meowth/database/research_tasks.sql:/docker-entrypoint-initdb.d/020_research_tasks.sql
+      - ./Meowth/database/task_names.sql:/docker-entrypoint-initdb.d/021_task_names.sql
+      - ./Meowth/database/team_names.sql:/docker-entrypoint-initdb.d/022_team_names.sql
+      - ./Meowth/database/teams.sql:/docker-entrypoint-initdb.d/023_teams.sql
+      - ./Meowth/database/type_chart.sql:/docker-entrypoint-initdb.d/024_type_chart.sql
+      - ./Meowth/database/types.sql:/docker-entrypoint-initdb.d/025_types.sql
+      - ./Meowth/database/weather_names.sql:/docker-entrypoint-initdb.d/026_weather_names.sql
+
+      - ./Meowth/database/pokemon.sql:/docker-entrypoint-initdb.d/100_pokemon.db
+      - ./load_pokemon.sh:/docker-entrypoint-initdb.d/100_load_pokemon.sh
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
   meowth:
     build:
       context: .
       dockerfile: ./Dockerfile
-      
+    environment:
+      BOT_TOKEN: SOME_TOKEN_HERE
+      # looking to move this into a proper secrets management in docker/github + deployed with github actions 
+volumes:
+  db:

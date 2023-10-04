@@ -1,0 +1,1 @@
+pg_restore -U postgres -d postgres /docker-entrypoint-initdb.d/100_pokemon.db
