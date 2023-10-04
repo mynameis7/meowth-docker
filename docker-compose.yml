@@ -1,0 +1,6 @@
+services:
+  meowth:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      
