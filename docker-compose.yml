@@ -38,7 +38,10 @@ services:
       context: .
       dockerfile: ./Dockerfile
     environment:
-      BOT_TOKEN: SOME_TOKEN_HERE
+      BOT_TOKEN: YOUR_TOKEN_HERE
+      PG_HOSTNAME: pgdb
+      PG_USERNAME: postgres
+      PG_PASSWORD: password
       # looking to move this into a proper secrets management in docker/github + deployed with github actions 
 volumes:
   db:
