@@ -1,6 +1,8 @@
 cp /code/meowth/config_template.py /code/meowth/config.py
 
 sed -i -e "s/your_token_here/$BOT_TOKEN/g" /code/meowth/config.py
+sed -i -e "s/bot_master = 12345678903216549878/bot_master = $BOT_MASTER/g" /code/meowth/config.py
+
 sed -i -e "s/# 'username' : 'meowth'/'username' : '$PG_USERNAME'/g" /code/meowth/config.py
 sed -i -e "s/# 'database' : 'meowth'/'database' : '$PG_DATABASE'/g" /code/meowth/config.py
 sed -i -e "s/# 'hostname' : 'localhost'/'hostname' : '$PG_HOSTNAME'/g" /code/meowth/config.py

@@ -39,6 +39,7 @@ services:
       dockerfile: ./Dockerfile
     environment:
       BOT_TOKEN: YOUR_TOKEN_HERE
+      BOT_MASTER: YOUR_USER_ID_HERE
       PG_HOSTNAME: pgdb
       PG_USERNAME: postgres
       PG_PASSWORD: password

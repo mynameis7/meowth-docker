@@ -48,7 +48,8 @@ ENV PG_PASSWORD="password"
 COPY --from=base /s2/dist /s2-dep/
 RUN python -m pip install /s2-dep/s2geometry-0.11.0.dev1-cp310-cp310-linux_x86_64.whl
 COPY Meowth /code/
-COPY requirements.txt /code/requirements.txt
+COPY requirements.override.txt /code/requirements.txt
+COPY setup.override.py /code/setup.py
 WORKDIR /code
 RUN python -m pip install -r requirements.txt
 COPY entrypoint.sh /code/meowth/entrypoint.sh
