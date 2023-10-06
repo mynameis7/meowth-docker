@@ -45,12 +45,14 @@ services:
       - pg_password
       - bot_token
       - bot_master
+      - gmaps_api_key
     environment:
       BOT_TOKEN_FILE: /run/secrets/bot_token
       BOT_MASTER_FILE: /run/secrets/bot_master
       PG_HOSTNAME: pgdb
       PG_USERNAME: postgres
       PG_PASSWORD_FILE: /run/secrets/pg_password
+      GMAPS_API_KEY_FILE: /run/secrets/gmaps_api_key
       # looking to move this into a proper secrets management in docker/github + deployed with github actions 
 volumes:
   db:
@@ -61,4 +63,5 @@ secrets:
     file: secret_bot_master_user_id.txt
   pg_password:
     file: secret_postgres_password.txt
-  
+  gmaps_api_key:
+    file: secret_gmaps_api_key.txt
