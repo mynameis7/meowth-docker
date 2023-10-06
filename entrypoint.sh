@@ -1,5 +1,9 @@
 cp /code/meowth/config_template.py /code/meowth/config.py
 
+if [ -e "$BOT_TOKEN_FILE" ]; then BOT_TOKEN=$(cat $BOT_TOKEN_FILE); fi
+if [ -e "$BOT_MASTER_FILE" ]; then BOT_MASTER=$(cat $BOT_MASTER_FILE); fi 
+if [ -e "$PG_PASSWORD_FILE" ]; then PG_PASSWORD=$(cat $PG_PASSWORD_FILE); fi
+cat $PG_PASSWORD
 sed -i -e "s/your_token_here/$BOT_TOKEN/g" /code/meowth/config.py
 sed -i -e "s/bot_master = 12345678903216549878/bot_master = $BOT_MASTER/g" /code/meowth/config.py
 

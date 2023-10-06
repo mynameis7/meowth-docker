@@ -3,8 +3,10 @@ services:
   pgdb:
     image: postgres:15
     restart: always
+    secrets:
+      - pg_password
     environment:
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD_FILE: /run/secrets/pg_password
     volumes:
       - db:/var/lib/postgresql/data
       - ./Meowth/database/schema.sql:/docker-entrypoint-initdb.d/001_schema.sql
@@ -34,15 +36,29 @@ services:
     ports:
       - 8080:8080
   meowth:
+    depends_on:
+      - pgdb
     build:
       context: .
       dockerfile: ./Dockerfile
+    secrets:
+      - pg_password
+      - bot_token
+      - bot_master
     environment:
-      BOT_TOKEN: YOUR_TOKEN_HERE
-      BOT_MASTER: YOUR_USER_ID_HERE
+      BOT_TOKEN_FILE: /run/secrets/bot_token
+      BOT_MASTER_FILE: /run/secrets/bot_master
       PG_HOSTNAME: pgdb
       PG_USERNAME: postgres
-      PG_PASSWORD: password
+      PG_PASSWORD_FILE: /run/secrets/pg_password
       # looking to move this into a proper secrets management in docker/github + deployed with github actions 
 volumes:
   db:
+secrets:
+  bot_token:
+    file: secret_token.txt
+  bot_master:
+    file: secret_bot_master_user_id.txt
+  pg_password:
+    file: secret_postgres_password.txt
+  
