@@ -55,7 +55,8 @@ services:
       PG_USERNAME: postgres
       PG_PASSWORD_FILE: /run/secrets/pg_password
       GMAPS_API_KEY_FILE: /run/secrets/gmaps_api_key
-      # looking to move this into a proper secrets management in docker/github + deployed with github actions 
+
+      PRELOAD_EXTENSIONS: "['raid','map','pkmn','research','rocket','wild','users','admin']"
 volumes:
   db:
 secrets:
