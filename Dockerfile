@@ -53,7 +53,7 @@ RUN apt-get update && apt-get install -y python3-dev
 COPY --from=base /s2/dist /s2-dep/
 RUN python -m pip install /s2-dep/s2geometry-0.11.0.dev1-cp310-cp310-linux_x86_64.whl
 RUN ln -s /usr/local/lib/python3.10/site-packages/s2geometry /usr/local/lib/python3.10/site-packages/pywraps2
-COPY Meowth /code/
+COPY Persian /code/
 
 # modifications to Meowth
 COPY requirements.override.txt /code/requirements.txt

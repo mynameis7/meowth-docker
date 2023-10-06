@@ -7,3 +7,6 @@
 [submodule "Meowth"]
 	path = Meowth
 	url = git@github.com:FoglyOgly/Meowth.git
+[submodule "Persian"]
+	path = Persian
+	url = https://github.com/mynameis7/Persian.git
