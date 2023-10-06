@@ -46,9 +46,11 @@ services:
       - bot_token
       - bot_master
       - gmaps_api_key
+      - bot_coowners
     environment:
       BOT_TOKEN_FILE: /run/secrets/bot_token
       BOT_MASTER_FILE: /run/secrets/bot_master
+      BOT_COOWNERS_FILE: /run/secrets/bot_coowners
       PG_HOSTNAME: pgdb
       PG_USERNAME: postgres
       PG_PASSWORD_FILE: /run/secrets/pg_password
@@ -61,6 +63,8 @@ secrets:
     file: secret_token.txt
   bot_master:
     file: secret_bot_master_user_id.txt
+  bot_coowners:
+    file: secret_bot_coowner_user_ids.txt
   pg_password:
     file: secret_postgres_password.txt
   gmaps_api_key:
